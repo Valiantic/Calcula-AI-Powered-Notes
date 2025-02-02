@@ -6,6 +6,8 @@ export default function Home() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isDrawing, setisDrawing] = useState(false);
 
+    // continue 11:18
+
     // useeffect to initialize the canvas
     useEffect(() => {
         const canvas = canvasRef.current;
