@@ -2,10 +2,10 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
-import Home from '@/screens/home';
+import Home from './pages/home';
 // Error See Video 11:44
 
-import '@/index.css';
+import './pages/home/index.tsx';
 
 const paths = [
     {
