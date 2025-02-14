@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { SWATCHES } from "constants";
+import { SWATCHES } from "../../pages/home/constants";
 import { ColorSwatch, Group } from "@mantine/core";
-import { Button } from './components/ui/button';
+import { Button } from "../../components/ui/button";
 import axios from 'axios';
 
 interface Response {
@@ -64,6 +64,7 @@ export default function Home() {
                 });
                 const resp = await response.data;
                 console.log('Response: ', resp);
+                // 17:52
         }
     };
 
@@ -82,7 +83,6 @@ export default function Home() {
 
     // initialize drawing of the user 
     const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
-        // initialize the canvas
         const canvas = canvasRef.current;
         if (canvas) {
             canvas.style.background = 'black';
@@ -90,10 +90,12 @@ export default function Home() {
             if (ctx) {
                 ctx.beginPath();
                 ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+                ctx.strokeStyle = color; // Set the selected color
                 setisDrawing(true);
             }
+        }
     }
-}
+
     // initialize the drawing of the user
     const stopDrawing = () => {
         setisDrawing(false);
@@ -108,7 +110,7 @@ export default function Home() {
         if (canvas) {
             const ctx = canvas.getContext('2d');
             if (ctx) {
-                ctx.strokeStyle = 'color';
+                ctx.strokeStyle = color; // Use the selected color
                 ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
                 ctx.stroke();
             }
@@ -117,6 +119,35 @@ export default function Home() {
 
 
     return (
+        <>
+        <div className="grid grid-cols-3 gap-2">
+            <Button 
+            onClick={() => setReset(true)}
+            className='z-20 bg-black text-white'
+            variant='default'
+            color='black'
+            >
+                Reset
+            </Button>
+            <Group className="z-20">
+                {SWATCHES.map((swatchColor: string) => (
+                    <ColorSwatch
+                    key={swatchColor}
+                    color={swatchColor}
+                    onClick={() => setColor(swatchColor)}
+                    style={{ cursor: 'pointer' }}
+                    />
+                ))}
+            </Group>
+            <Button 
+            onClick={sendData}
+            className='z-20 bg-black text-white'
+            variant='default'
+            color='black'
+            >
+                Calculate
+            </Button>
+        </div>
         <canvas 
         ref={canvasRef}
         id='canvas'
@@ -127,5 +158,6 @@ export default function Home() {
         onMouseOut={stopDrawing}
         
         />
+        </>
     );
 }
