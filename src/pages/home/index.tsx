@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { SWATCHES } from "../../pages/home/constants";
+import { SWATCHES } from "../../../constants";
 import { ColorSwatch, Group } from "@mantine/core";
 import { Button } from "../../components/ui/button";
 import axios from 'axios';
